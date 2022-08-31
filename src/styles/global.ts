@@ -4,20 +4,30 @@ export const GlobalStyle = createGlobalStyle`
 :root {
   --color-primary: #2CC3D5;
 
-  --background: #E5E5E5;
+  --background: #F5F8F9;
 
   --text-white: #F8FBFB;
 
-  /* --gray-50: #F7F8FA;
-    --gray-100: #E6E8EB;
-    --gray-200: #AFB2B1;
-    --gray-500: #888888;
-    --gray-800: #494D4B; */
+  /*  --gray-200: #AFB2B1;
+  --gray-500: #888888;
+  --gray-800: #494D4B; */
+
+    --gray-10: #8CA0B3;
+  
+    --gray-50: #D2DFE6; //cor do list no selected
+
+    --gray-200: #607B99; //titulo favorito
+    
+    --gray-250: #738192; // tipo do contato
+    --gray-300: #56616E; //tile my chatbots
+    --gray-350: #52636C; //sub titulo nome do contato
 
     --gray-500: #738192;
 
-    --border-radius-container: 10px;
-    --border-radius-btn: 5px;
+    --border-radius-container: 7px;
+    --border-radius-btn: 8px;
+
+    --box-shadow-container: 0px 2px 12px rgba(96, 123, 153, 0.15);
 }
 * {
   margin: 0;
@@ -35,6 +45,12 @@ export const GlobalStyle = createGlobalStyle`
     }
 }
 
+.App{
+    min-height: 100vh;
+    position: relative;
+
+}
+
 body {
     background-color: var(--background);
     color: var(--text-primary);
@@ -46,6 +62,9 @@ body, input, textarea, button {
 
 h1, h2, h3, h4, h5, h6, p {
     color: var(--text-primary);
+}
+a{
+    text-decoration: none;
 }
   button {
     cursor: pointer;
