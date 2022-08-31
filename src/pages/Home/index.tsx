@@ -1,5 +1,8 @@
 import { Button } from "../../components/button";
-import IconOrganizeList from "../../assets/icons/organize-list.svg";
+import { CardContact } from "../../components/cardContact";
+import { BsGridFill } from "react-icons/bs";
+import { MdAdd } from "react-icons/md";
+import { getListingContacts } from "../../services/sessions";
 import {
   Container,
   NavBar,
@@ -7,22 +10,54 @@ import {
   WrapperRight,
   Input,
   IconOrganize,
+  ContainerFavorites,
+  TitleFavorites,
+  WrapperCardContacts,
+  Divider,
+  ButtonAdd,
 } from "./styles";
-import { BsGridFill } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+/* interface FavoritesProps {
+  name: string;
+  type: string;
+  created: string;
+} */
 
 export const Home = () => {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    getListingContacts()
+      .then((response) => {
+        setFavorites(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  console.log("favorites", favorites);
   return (
     <>
       <Container>
         <NavBar>
-          <Title>home</Title>
+          <Title>My chatbots</Title>
           <WrapperRight>
             <Input placeholder="Search" />
             <Button label="Order by name" type="submit" />
             <Button label="Order by creation" type="submit" />
-
-            <BsGridFill style={{ fill: "red" }} />
-
+            <IconOrganize>
+              <BsGridFill
+                style={{
+                  padding: "2px",
+                  fill: "red",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </IconOrganize>
             <IconOrganize>
               <svg
                 width="32"
@@ -43,8 +78,42 @@ export const Home = () => {
             </IconOrganize>
           </WrapperRight>
         </NavBar>
-        asdfasdf
+        <ContainerFavorites>
+          <TitleFavorites>Favorites</TitleFavorites>
+          <WrapperCardContacts isBlock={true}>
+            {favorites &&
+              favorites.map((value: any, index: any) => (
+                <Link to={`/${value.name}/details/`} key={index}>
+                  <CardContact
+                    name={value.name}
+                    type={value.type}
+                    created={value.created}
+                    isFavorite={true}
+                    organization={"block"}
+                  />
+                </Link>
+              ))}
+          </WrapperCardContacts>
+        </ContainerFavorites>
+        <Divider />
+        <WrapperCardContacts isBlock={false} style={{ paddingTop: "40px" }}>
+          {favorites &&
+            favorites.map((value: any, index) => (
+              <div key={index}>
+                <CardContact
+                  name={value.name}
+                  type={value.type}
+                  created={value.created}
+                  isFavorite={false}
+                  organization={"list"}
+                />
+              </div>
+            ))}
+        </WrapperCardContacts>
       </Container>
+      <ButtonAdd>
+        <MdAdd />
+      </ButtonAdd>
     </>
   );
 };
