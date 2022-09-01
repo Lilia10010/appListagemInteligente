@@ -21,6 +21,7 @@ import {
   CardContacts,
   BtnFavorite,
 } from "./styles";
+import { randomColor } from "../../components/utils";
 
 export const Home = () => {
   const [favorites, setFavorites] = useState([]);
@@ -39,15 +40,6 @@ export const Home = () => {
         console.log(error);
       });
   };
-
-  const favorites1 = [
-    { name: "a", type: "Admin" },
-    { name: "b", type: "User" },
-    { name: "c", type: "User" },
-    { name: "d", type: "User" },
-    { name: "e", type: "User" },
-    { name: "f", type: "User" },
-  ];
 
   const [filterTags, setFilterTag] = useState([""]);
 
@@ -106,28 +98,24 @@ export const Home = () => {
             <>
               <TitleFavorites>Favorites</TitleFavorites>
               <WrapperCardContacts isBlock={typeOrganizationBlock}>
-                {favorites1.map((value: any, index: any) => (
-                  <>
-                    {filterTags.includes(value.name) && (
-                      <>
-                        <CardContacts key={index}>
-                          <BtnFavorite
-                            onClick={() => handleFilter(value.name)}
+                {favorites.map(
+                  (value: any, index: any) =>
+                    filterTags.includes(value.name) && (
+                      <CardContacts key={index}>
+                        <BtnFavorite onClick={() => handleFilter(value.name)} />
+                        <Link to={`/${value.name}/details/`}>
+                          <CardContact
+                            name={value.name}
+                            type={value.type}
+                            created={value.created}
+                            isFavorite={true}
+                            organization={typeOrganizationBlock}
+                            avatarColor={randomColor()}
                           />
-                          <Link to={`/${value.name}/detailsx/`} key={index}>
-                            <CardContact
-                              name={value.name}
-                              type={value.type}
-                              created={value.created}
-                              isFavorite={true}
-                              organization={typeOrganizationBlock}
-                            />
-                          </Link>
-                        </CardContacts>
-                      </>
-                    )}
-                  </>
-                ))}
+                        </Link>
+                      </CardContacts>
+                    )
+                )}
               </WrapperCardContacts>
               <Divider />
             </>
@@ -137,25 +125,25 @@ export const Home = () => {
           isBlock={typeOrganizationBlock}
           style={{ paddingTop: "40px" }}
         >
-          {favorites1 &&
-            favorites1.map((value: any, index) => (
-              <>
-                {!filterTags.includes(value.name) && (
+          {favorites &&
+            favorites.map(
+              (value: any, index) =>
+                !filterTags.includes(value.name) && (
                   <CardContacts key={index}>
                     <BtnFavorite onClick={() => handleFilter(value.name)} />
-                    <Link to={`/${value.name}/detailsx/`}>
+                    <Link to={`/${value.name}/details/`}>
                       <CardContact
                         name={value.name}
                         type={value.type}
                         created={value.created}
                         isFavorite={false}
                         organization={typeOrganizationBlock}
+                        avatarColor={randomColor()}
                       />
                     </Link>
                   </CardContacts>
-                )}
-              </>
-            ))}
+                )
+            )}
         </WrapperCardContacts>
       </Container>
       <ButtonAdd>

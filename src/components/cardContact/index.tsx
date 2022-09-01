@@ -15,6 +15,7 @@ interface CardContactProps {
   name: string;
   type: string;
   created: string;
+  avatarColor?: string;
 }
 
 export const CardContact = ({
@@ -23,6 +24,7 @@ export const CardContact = ({
   name,
   type,
   created,
+  avatarColor = "pink",
 }: CardContactProps) => {
   return (
     <>
@@ -35,7 +37,7 @@ export const CardContact = ({
               <AiOutlineStar />
             )}
           </Favorite>
-          <AvatarColor />
+          <AvatarColor style={{ background: `${avatarColor}` }} />
           <Name>{name}</Name>
           <Type>{type}</Type>
         </Container>
@@ -50,7 +52,7 @@ export const CardContact = ({
           </FavoriteList>
           <WrapperInfoList>
             <WrapperLeft>
-              <AvatarColorList />
+              <AvatarColorList style={{ background: `${avatarColor}` }} />
               <Name>{name}</Name>
             </WrapperLeft>
             <CreatedList>Created at {created}</CreatedList>

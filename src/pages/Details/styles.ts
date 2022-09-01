@@ -128,3 +128,11 @@ export const Footer = styled.div`
   color: var(--gray-500);
   padding: 16px 0;
 `;
+
+export const Error = styled.div`
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gray-500);
+`;
