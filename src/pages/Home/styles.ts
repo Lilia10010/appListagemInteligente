@@ -33,12 +33,15 @@ export const Input = styled.input`
   padding: 8px 15px;
   border-radius: var(--border-radius-btn);
   font-size: 16px;
-  /*   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); */
 `;
 
-export const IconOrganize = styled.div`
+export const IconOrganize = styled.button`
   width: 32px;
   height: 32px;
+  border: none;
+  background: transparent;
+  color: #b9cbd3;
+  fill: #b9cbd3;
 `;
 
 export const ContainerFavorites = styled.div``;
@@ -72,10 +75,29 @@ export const ButtonAdd = styled.div`
   background: var(--color-primary);
   display: flex;
   border-radius: 200px;
+  cursor: pointer;
+  transition: 0.3s;
 
   svg {
     font-size: 30px;
     margin: auto;
     color: #fff;
   }
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+export const CardContacts = styled.div`
+  position: relative;
+`;
+export const BtnFavorite = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  border: none;
+  background: transparent;
+  z-index: 99;
 `;

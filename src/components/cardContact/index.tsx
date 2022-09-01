@@ -11,7 +11,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 interface CardContactProps {
   isFavorite: boolean;
-  organization?: "block" | "list";
+  organization?: boolean;
   name: string;
   type: string;
   created: string;
@@ -19,14 +19,14 @@ interface CardContactProps {
 
 export const CardContact = ({
   isFavorite,
-  organization = "list",
+  organization = true,
   name,
   type,
   created,
 }: CardContactProps) => {
   return (
     <>
-      {organization === "block" && (
+      {organization ? (
         <Container>
           <Favorite>
             {isFavorite ? (
@@ -39,9 +39,7 @@ export const CardContact = ({
           <Name>{name}</Name>
           <Type>{type}</Type>
         </Container>
-      )}
-
-      {organization === "list" && (
+      ) : (
         <ContainerList>
           <FavoriteList>
             {isFavorite ? (

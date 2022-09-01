@@ -28,10 +28,6 @@ import {
 } from "./styles";
 import { Divider } from "../Home/styles";
 
-interface Xx {
-  name?: string;
-}
-
 export const Details = () => {
   const { id } = useParams();
   const [infoContact, setInfoContact] = useState(null);
@@ -41,10 +37,6 @@ export const Details = () => {
     getDetailsContact(shortName)
       .then((response) => {
         setInfoContact(response.data);
-        console.log(
-          "🚀 ~ file: index.tsx ~ line 28 ~ .then ~ response.data",
-          response.data.analytics.message.received
-        );
       })
       .catch((error) => console.log(error));
   }, []);
