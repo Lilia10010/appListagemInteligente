@@ -1,7 +1,6 @@
 import React from "react";
 /*import logo from "./logo.svg"; */
 import { GlobalStyle } from "./styles/global";
-
 import { Router } from "./routes";
 import { Header } from "./components/header";
 

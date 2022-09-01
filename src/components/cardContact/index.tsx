@@ -11,22 +11,24 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 interface CardContactProps {
   isFavorite: boolean;
-  organization?: "block" | "list";
+  organization?: boolean;
   name: string;
   type: string;
   created: string;
+  avatarColor?: string;
 }
 
 export const CardContact = ({
   isFavorite,
-  organization = "list",
+  organization = true,
   name,
   type,
   created,
+  avatarColor = "pink",
 }: CardContactProps) => {
   return (
     <>
-      {organization === "block" && (
+      {organization ? (
         <Container>
           <Favorite>
             {isFavorite ? (
@@ -35,13 +37,11 @@ export const CardContact = ({
               <AiOutlineStar />
             )}
           </Favorite>
-          <AvatarColor />
+          <AvatarColor style={{ background: `${avatarColor}` }} />
           <Name>{name}</Name>
           <Type>{type}</Type>
         </Container>
-      )}
-
-      {organization === "list" && (
+      ) : (
         <ContainerList>
           <FavoriteList>
             {isFavorite ? (
@@ -52,7 +52,7 @@ export const CardContact = ({
           </FavoriteList>
           <WrapperInfoList>
             <WrapperLeft>
-              <AvatarColorList />
+              <AvatarColorList style={{ background: `${avatarColor}` }} />
               <Name>{name}</Name>
             </WrapperLeft>
             <CreatedList>Created at {created}</CreatedList>

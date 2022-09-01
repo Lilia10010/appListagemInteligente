@@ -46,4 +46,5 @@ export const Name = styled.div`
 export const Type = styled.div`
   font-size: 12px;
   color: var(--gray-250);
+  text-transform: capitalize;
 `;

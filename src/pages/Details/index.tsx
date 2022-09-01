@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDetailsContact } from "../../services/sessions";
+import { formatDate } from "../../components/utils";
 
 import { Button } from "../../components/button";
 
@@ -10,6 +11,8 @@ import IconMessageSent from "../../assets/icons/message-sent.svg";
 
 import ImageDialog from "../../assets/icons/icon-dialog.svg";
 import ImageBallon from "../../assets/img/image-ballon.svg";
+
+import { BiError } from "react-icons/bi";
 
 import {
   Container,
@@ -25,33 +28,33 @@ import {
   CardAnalitics,
   Total,
   Footer,
+  Error,
 } from "./styles";
 import { Divider } from "../Home/styles";
-
-interface Xx {
-  name?: string;
-}
 
 export const Details = () => {
   const { id } = useParams();
   const [infoContact, setInfoContact] = useState(null);
+  const [error, setError] = useState(false);
+  const [dateFormatted, setDateFormatted] = useState("");
 
   useEffect(() => {
     const shortName = id?.toLowerCase();
     getDetailsContact(shortName)
       .then((response) => {
         setInfoContact(response.data);
-        console.log(
-          "🚀 ~ file: index.tsx ~ line 28 ~ .then ~ response.data",
-          response.data.analytics.message.received
-        );
+        setDateFormatted(response.data["created"]);
+
+        if (response.status !== 200) {
+          setError(true);
+        }
       })
-      .catch((error) => console.log(error));
+      .catch(() => setError(true));
   }, []);
 
   return (
     <Container>
-      {infoContact ? (
+      {infoContact && (
         <>
           <Header>
             <InfoLeft>
@@ -63,11 +66,9 @@ export const Details = () => {
                 <InfoId>id: {infoContact["shortName"]}</InfoId>
               </div>
             </InfoLeft>
-            <Created>Created at {infoContact["created"]}</Created>
+            <Created>Created at {formatDate(dateFormatted)}</Created>
           </Header>
-
           <Divider />
-
           <WrapperAnalytics>
             <WrapperLeft>
               <div className="area area-1">
@@ -109,17 +110,21 @@ export const Details = () => {
               <Button label="Update account" type="submit" />
             </WrapperRight>
           </WrapperAnalytics>
-
-          <Divider />
-
-          <Footer>
-            ©2019, BLiP Todos os direitos reservados |{" "}
-            <strong>Termos de Uso</strong>
-          </Footer>
         </>
-      ) : (
-        "rodando"
       )}
+      {error && (
+        <Error>
+          <BiError style={{ color: "#fcba03" }} /> Dev, este erro foi causado
+          pelo parâmetro enviado na requisição, escolha outro contato, que não
+          tenha nome composto :)
+        </Error>
+      )}
+
+      <Divider />
+      <Footer>
+        ©2019, BLiP Todos os direitos reservados |{" "}
+        <strong>Termos de Uso</strong>
+      </Footer>
     </Container>
   );
 };
